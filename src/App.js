@@ -1,11 +1,13 @@
 import './App.css';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
-function Header(){
+function Header() {
     return <header><h1><a href='/'>WWW</a></h1></header>
 }
 
-function Nav(props){
-    const list = props.data.map(e => <li key={e.id}><a href={'/read/'+e.id}>{e.title}</a></li>)
+function Nav(props) {
+    const list = props.data.map(e => <li key={e.id}><a href={'/read/' + e.id}>{e.title}</a></li>)
     return <nav>
         <ol>
             {list}
@@ -13,7 +15,7 @@ function Nav(props){
     </nav>
 }
 
-function Article(props){
+function Article(props) {
     return <article>
         <h2>{props.title}</h2>
         {props.body}
@@ -22,16 +24,24 @@ function Article(props){
 
 function App() {
     const topics = [
-        {id:1, title:'html', body: 'html is...'},
-        {id:2, title:'css', body: 'css is...'}
+        { id: 1, title: 'html', body: 'html is...' },
+        { id: 2, title: 'css', body: 'css is...' }
     ]
-  return (
-    <div>
-        <Header></Header>
-        <Nav data={topics}></Nav>
-        <Article title='Welcome' body='Hello, WEB!'></Article>
-    </div>
-  );
+    function createHandler() {
+        alert('create!')
+    }
+    return (
+        <div>
+            <Header></Header>
+            <Nav data={topics}></Nav>
+            <Article title='Welcome' body='Hello, WEB!'></Article>
+            <ButtonGroup variant="outlined" aria-label="outlined button group">
+                <Button onClick={createHandler}>Create</Button>
+                <Button>Update</Button>
+                <Button>Delete</Button>
+            </ButtonGroup>
+        </div>
+    );
 }
 
 export default App;

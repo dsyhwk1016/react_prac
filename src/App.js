@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 function Header(){
@@ -6,7 +5,7 @@ function Header(){
 }
 
 function Nav(props){
-    const list = props.map(e=><li key={e.id}><a href={'read'+e.id}>{e.title}</a></li>)
+    const list = props.data.map(e => <li key={e.id}><a href={'/read/'+e.id}>{e.title}</a></li>)
     return <nav>
         <ol>
             {list}
@@ -14,21 +13,23 @@ function Nav(props){
     </nav>
 }
 
-function Article(){
+function Article(props){
     return <article>
-        <h2>Welcome</h2>
-        Hello, WEB!
+        <h2>{props.title}</h2>
+        {props.body}
     </article>
 }
 
-const list = ['html', 'css']
-
 function App() {
+    const topics = [
+        {id:1, title:'html', body: 'html is...'},
+        {id:2, title:'css', body: 'css is...'}
+    ]
   return (
     <div>
         <Header></Header>
-        <Nav title='html'></Nav>
-        <Article></Article>
+        <Nav data={topics}></Nav>
+        <Article title='Welcome' body='Hello, WEB!'></Article>
     </div>
   );
 }

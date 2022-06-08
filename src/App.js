@@ -1,23 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
 
+function Header(){
+    return <header><h1><a href='/'>WWW</a></h1></header>
+}
+
+function Nav(props){
+    const list = props.map(e=><li key={e.id}><a href={'read'+e.id}>{e.title}</a></li>)
+    return <nav>
+        <ol>
+            {list}
+        </ol>
+    </nav>
+}
+
+function Article(){
+    return <article>
+        <h2>Welcome</h2>
+        Hello, WEB!
+    </article>
+}
+
+const list = ['html', 'css']
+
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <Header></Header>
+        <Nav title='html'></Nav>
+        <Article></Article>
     </div>
   );
 }

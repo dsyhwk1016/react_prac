@@ -1,14 +1,16 @@
+import styled from 'styled-components';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
+const HeaderStyled = styled(Header)`
+    border-bottom: 1px solid gray;
+    padding: 10px;
+    font-size: 20px;
+`;
+
 function Header(props) {
-    const myStyle = {
-        borderBottom: '1px solid gray',
-        padding: 10,
-        fontSize: 20
-    }
-    return <header style={myStyle}><h1><a href='/' onClick={e=>{
+    return <header className={props.className}><h1><a href='/' onClick={e=>{
         e.preventDefault();
         props.onSelecte();
     }}>WWW</a></h1></header>
@@ -55,7 +57,7 @@ function App() {
 
     return (
         <div>
-            <Header onSelecte={()=>{setMode('WELCOME')}}></Header>
+            <HeaderStyled onSelecte={()=>{setMode('WELCOME')}}></HeaderStyled>
             <Nav data={topics} onSelecte={(id)=>{
                 setMode('READ');
                 setId(id);

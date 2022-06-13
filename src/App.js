@@ -39,7 +39,7 @@ const Create = (props) => {
     return (
         <article>
             <h2>Create</h2>
-            <form onSubmit={event=>{
+            <form onSubmit={event => {
                 event.preventDefault();
 
                 const title = event.target.title.value;
@@ -56,13 +56,13 @@ const Create = (props) => {
 }
 
 function App() {
+    const [mode, setMode] = useState('WELCOME');
+    const [id, setId] = useState(null);
     const [topics, setTopics] = useState([
         { id: 1, title: 'html', body: 'html is...' },
         { id: 2, title: 'css', body: 'css is...' }
     ]);
     const [nextId, setNextId] = useState(3);
-    const [mode, setMode] = useState('WELCOME');
-    const [id, setId] = useState(null);
 
     let content = null;
     if (mode === 'WELCOME') {
@@ -71,20 +71,28 @@ function App() {
         const topic = topics.filter(e => e.id === id)[0];
         content = <Article title={topic.title} body={topic.body}></Article>
     } else if (mode === 'CREATE') {
-        content = <Create onCreate={(title, body)=>{
+        content = <Create onCreate={(title, body) => {
             setTopics(topics => {
                 const newTopics = [...topics];
-                newTopics.push({id:nextId, title, body});
+                newTopics.push({ id: nextId, title, body });
                 return newTopics;
             });
-            setMode('READ');
             setId(nextId);
-            setNextId(nextId => nextId+1);
+            setMode('READ');
+            setNextId(nextId => nextId + 1);
         }} />
     }
 
     function createHandler() {
         setMode('CREATE');
+    }
+
+    function deleteHandler() {
+        setMode('WELCOME');
+        setTopics(topics => {
+            const newTopics = topics.filter(t => t.id !== id);
+            return newTopics;
+        });
     }
 
     return (
@@ -98,7 +106,7 @@ function App() {
             <ButtonGroup variant="outlined" aria-label="outlined button group">
                 <Button onClick={createHandler}>Create</Button>
                 <Button>Update</Button>
-                <Button>Delete</Button>
+                <Button onClick={deleteHandler}>Delete</Button>
             </ButtonGroup>
         </div>
     );

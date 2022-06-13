@@ -1,10 +1,14 @@
-import './App.css';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
 function Header(props) {
-    return <header><h1><a href='/' onClick={e=>{
+    const myStyle = {
+        borderBottom: '1px solid gray',
+        padding: 10,
+        fontSize: 20
+    }
+    return <header style={myStyle}><h1><a href='/' onClick={e=>{
         e.preventDefault();
         props.onSelecte();
     }}>WWW</a></h1></header>

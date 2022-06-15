@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import { Link } from 'react-router-dom';
 
 const HeaderStyled = styled(Header)`
     border-bottom: 1px solid gray;
@@ -10,17 +11,15 @@ const HeaderStyled = styled(Header)`
 `;
 
 function Header(props) {
-    return <header className={props.className}><h1><a href='/' onClick={e => {
-        e.preventDefault();
+    return <header className={props.className}><h1><Link to='/' onClick={() => {
         props.onSelecte();
-    }}>WWW</a></h1></header>
+    }}>WWW</Link></h1></header>
 }
 
 function Nav(props) {
-    const list = props.data.map(e => <li key={e.id}><a href={'/read/' + e.id} onClick={event => {
-        event.preventDefault();
+    const list = props.data.map(e => <li key={e.id}><Link to={'/read/' + e.id} onClick={() => {
         props.onSelecte(e.id);
-    }}>{e.title}</a></li>)
+    }}>{e.title}</Link></li>)
     return <nav>
         <ol>
             {list}
@@ -104,7 +103,7 @@ function App() {
             }}></Nav>
             {content}
             <ButtonGroup variant="outlined" aria-label="outlined button group">
-                <Button onClick={createHandler}>Create</Button>
+                <Button component={Link} to="/create" onClick={createHandler}>Create</Button>
                 <Button>Update</Button>
                 <Button onClick={deleteHandler}>Delete</Button>
             </ButtonGroup>

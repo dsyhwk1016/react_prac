@@ -13,6 +13,24 @@ function Read({topics}){
     return <Article title={topic.title} body={topic.body}></Article>;
 }
 
+function Control(){
+    const id = Number(useParams().id);
+    let contextUI = null;
+
+    if(id){
+        contextUI = <>
+            <Button>Update</Button>
+            <Button>Delete</Button>
+        </>;
+    }
+    return (
+        <ButtonGroup variant="outlined" aria-label="outlined button group">
+            <Button component={Link} to="/create">Create</Button>
+            {contextUI}
+        </ButtonGroup>
+    );
+}
+
 function App() {
     const [mode, setMode] = useState('WELCOME');
     const [id, setId] = useState(null);
@@ -43,11 +61,9 @@ function App() {
                 <Route path='/create' element={<Create onCreate={onCreateHandler()} />} />
                 <Route path='/read/:id' element={<Read topics={topics} />} />
             </Routes>
-            <ButtonGroup variant="outlined" aria-label="outlined button group">
-                <Button component={Link} to="/create" onClick={createHandler}>Create</Button>
-                <Button>Update</Button>
-                <Button onClick={deleteHandler}>Delete</Button>
-            </ButtonGroup>
+            <Routes>
+                {['/', '/read/:id', '/update/:id'].map(path => <Route path={path} element={<Control></Control>} />)}
+            </Routes>
         </div>
     );
 

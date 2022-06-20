@@ -67,7 +67,7 @@ function App() {
     };
 
     async function deleteHandler(id) {
-        const res = await fetch(`http://localhost:3333/topics/${id}`, {
+        await fetch(`http://localhost:3333/topics/${id}`, {
             method: 'DELETE'
         });
         

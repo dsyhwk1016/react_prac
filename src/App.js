@@ -52,8 +52,8 @@ function App() {
         refreshTopics();
     };
 
-    async function onUpdateHandler(title, body){
-        const res = await fetch('http://localhost:3333/topics', {
+    async function onUpdateHandler(id, title, body){
+        const res = await fetch(`http://localhost:3333/topics/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

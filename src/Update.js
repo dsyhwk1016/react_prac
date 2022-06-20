@@ -3,13 +3,15 @@ import { useParams } from 'react-router-dom';
 
 export const Update = (props) => {
     const id = Number(useParams().id);
-    const [topic, setTopic] = useState({ title: null, body: null });
+    const [title, setTitle] = useState('');
+    const [body, setBody] = useState('');
 
     useEffect(() => {
         (async () => {
             const res = await fetch(`http://localhost:3333/topics/${id}`);
             const data = await res.json();
-            setTopic(data);
+            setTitle(data.title);
+            setBody(data.body);
         })();
     }, [id]);
 
@@ -22,10 +24,10 @@ export const Update = (props) => {
                 const title = event.target.title.value;
                 const body = event.target.body.value;
 
-                props.onUpdate(title, body);
+                props.onUpdate(id, title, body);
             }}>
-                <p><input name='title' type='text' placeholder='title' value={topic.title} /></p>
-                <p><textarea name='body' placeholder='body' value={topic.body} /></p>
+                <p><input name='title' type='text' placeholder='title' value={title} onChange={e=>setTitle(e.target.value)} /></p>
+                <p><textarea name='body' placeholder='body' value={body} onChange={e=>setBody(e.target.value)} /></p>
                 <p><input type='submit' value='Update' /></p>
             </form>
         </article>

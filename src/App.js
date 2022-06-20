@@ -33,7 +33,7 @@ function App() {
                 <Route path='/update/:id' element={<Update onUpdate={onUpdateHandler} />} />
             </Routes>
             <Routes>
-                {['/', '/read/:id', '/update/:id'].map(path => <Route path={path} element={<Control onDelete={deleteHandler} />} />)}
+                {['/', '/read/:id', '/update/:id', '/delete/:id'].map(path => <Route path={path} element={<Control onDelete={deleteHandler} />} />)}
             </Routes>
         </div>
     );
@@ -66,12 +66,13 @@ function App() {
         refreshTopics();
     };
 
-    function deleteHandler(id) {
-        setTopics(topics => {
-            const newTopics = topics.filter(t => t.id !== id);
-            return newTopics;
+    async function deleteHandler(id) {
+        const res = await fetch(`http://localhost:3333/topics/${id}`, {
+            method: 'DELETE'
         });
+        
         navigate('/');
+        refreshTopics();
     };
 }
 

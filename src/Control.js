@@ -8,7 +8,7 @@ export function Control({ onDelete }) {
 
     if (id) {
         contextUI = <>
-            <Button>Update</Button>
+            <Button component={Link} to={`/update/${id}`}>Update</Button>
             <Button onClick={() => onDelete(id)}>Delete</Button>
         </>;
     }

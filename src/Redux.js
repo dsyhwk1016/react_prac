@@ -1,4 +1,5 @@
 import "./Redux.css";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import countUp from './countUpSlice';
 import { down } from './countDownSlice';
@@ -23,13 +24,22 @@ function Left2() {
 
 function Left3() {
     const dispatch = useDispatch();
+    const countUpValue = useSelector(state => state.countUp.value);
 
     return (
         <div>
             <h1>Left3</h1>
             <button
-                onClick={() => {
-                    dispatch(countUp.actions.up(2));
+                onClick={async () => {
+                    const resp = await fetch('http://localhost:3333/countUp', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ value: countUpValue + 1 }),
+                    });
+                    const result = await resp.json();
+                    dispatch(countUp.actions.up(1));
                 }}
             >
                 +
@@ -76,6 +86,16 @@ function Right3() {
 };
 
 export default function App() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        (async () => {
+            const resp = await fetch('http://localhost:3333/countUp');
+            const result = await resp.json();
+            dispatch(countUp.actions.set(result.value));
+        })()
+    }, []);
+
     return (
         <div id="app">
             <h1>Root</h1>

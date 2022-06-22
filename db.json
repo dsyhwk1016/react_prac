@@ -1,24 +1,8 @@
 {
-  "topics": [
-    {
-      "id": 1,
-      "title": "html5",
-      "body": "html5 is..."
-    },
-    {
-      "id": 2,
-      "title": "css3",
-      "body": "css3 is..."
-    },
-    {
-      "id": 3,
-      "title": "javascript",
-      "body": "javascript is..."
-    },
-    {
-      "title": "hello",
-      "body": "hello",
-      "id": 5
-    }
-  ]
+  "countUp": {
+    "value": 2
+  },
+  "countDown": {
+    "value": 0
+  }
 }

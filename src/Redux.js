@@ -1,5 +1,7 @@
 import "./Redux.css";
 import { useSelector, useDispatch } from 'react-redux';
+import countUp from './countUpSlice';
+import { down } from './countDownSlice';
 
 function Left1() {
     return (
@@ -21,16 +23,23 @@ function Left2() {
 
 function Left3() {
     const dispatch = useDispatch();
-    
+
     return (
         <div>
             <h1>Left3</h1>
             <button
                 onClick={() => {
-                    dispatch({type: 'UP', step: 2});
+                    dispatch(countUp.actions.up(2));
                 }}
             >
                 +
+            </button>
+            <button
+                onClick={() => {
+                    dispatch(down(2));
+                }}
+            >
+                -
             </button>
         </div>
     );
@@ -55,12 +64,13 @@ function Right2() {
 };
 
 function Right3() {
-    const value = useSelector(state => state.value);
+    const countUpValue = useSelector(state => state.countUp.value);
+    const countDownValue = useSelector(state => state.countDown.value);
 
     return (
         <div>
             <h1>Right3</h1>
-            {value}
+            {countUpValue} | {countDownValue}
         </div>
     );
 };
